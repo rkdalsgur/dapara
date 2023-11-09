@@ -1,17 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit'
+const { createSlice } = require('@reduxjs/toolkit')
 import Cookies from 'js-cookie'
 
 const initialState = Cookies.get('cart')
-  ? { ...JSON.parse(Cookies.get('cart')), loading: true }
+  ? {
+      ...JSON.parse(Cookies.get('cart')),
+      loading: true,
+    }
   : {
       loading: true,
       cartItems: [],
       shippingAddress: {},
-      paymentMethod: '',
+      PaymentMethod: '',
     }
 
+/*{
+    loading: true,
+    cartItems: [],
+}*/
+
+//12.345678 => 12.35
 const addDecimals = (num) => {
-  return (Math.round(num * 100) / 100).toFixed(2) // 12.3456 to 12.35
+  return (Math.round(num * 100) / 100).toFixed(2)
 }
 
 const cartSlice = createSlice({
@@ -28,6 +37,7 @@ const cartSlice = createSlice({
       } else {
         state.cartItems = [...state.cartItems, item]
       }
+
       state.itemsPrice = addDecimals(
         state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
       )
@@ -53,6 +63,7 @@ const cartSlice = createSlice({
           Number(state.shippingPrice) +
           Number(state.taxPrice)
       )
+
       Cookies.set('cart', JSON.stringify(state))
     },
     saveShippingAddress: (state, action) => {

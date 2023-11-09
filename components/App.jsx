@@ -1,21 +1,20 @@
 'use client'
 
-import { useDispatch, useSelector } from 'react-redux'
-import CartSidebar from './CartSidebar'
 import Header from './Header'
+import CartSidebar from './CartSidebar'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { hideLoading } from '@/redux/slices/cartSlice'
 import { usePathname } from 'next/navigation'
 
 export default function App({ children }) {
   const dispatch = useDispatch()
+  const { cartItems, loading } = useSelector((state) => state.cart)
+  const pathname = usePathname()
 
   useEffect(() => {
     dispatch(hideLoading())
   }, [dispatch])
-
-  const { cartItems, loading } = useSelector((state) => state.cart)
-  const pathname = usePathname()
 
   return (
     <div>

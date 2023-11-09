@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Dapara',
-  description: 'Dapara shopping with next.js, mongodb, tailwind',
+  description: 'Global shopping mall using Next.js, Mongodb',
 }
 
 export default function RootLayout({ children }) {

@@ -2,12 +2,13 @@ import { addToCart, removeFromCart } from '@/redux/slices/cartSlice'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function CartSidebar() {
   const { loading, cartItems, itemsPrice } = useSelector((state) => state.cart)
-
   const dispatch = useDispatch()
+  const pathname = usePathname()
 
   const addToCartHandler = async (product, qty) => {
     dispatch(addToCart({ ...product, qty }))
@@ -16,8 +17,6 @@ export default function CartSidebar() {
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
   }
-
-  const pathname = usePathname()
 
   return (
     <div
@@ -31,19 +30,19 @@ export default function CartSidebar() {
       }
     >
       {loading ? (
-        <div className="py-5 px-2">Loading...</div>
+        <div className="py-5 px-2">Loading... </div>
       ) : cartItems.length === 0 ? (
         <div className="py-5 px-2">Cart is empty</div>
       ) : (
         <>
           <div className="p-2 flex flex-col items-center border-b border-b-gray-600">
             <div>Subtotal</div>
-            <div className="font-bold text-orange-700">${itemsPrice}</div>
+            <div className="font-bold text-orange-700">{itemsPrice}</div>
             <Link
               href="/cart"
-              className="w-full text-center p-1 rounded-2xl border-2 border-gray-600"
+              className="w-full text-center p-1 rounded-2xl border-2"
             >
-              Go to cart
+              Go to Cart
             </Link>
           </div>
           {cartItems.map((item) => (
@@ -58,7 +57,7 @@ export default function CartSidebar() {
                   width={50}
                   height={50}
                   className="p-1"
-                ></Image>
+                />
               </Link>
 
               <select
@@ -71,6 +70,7 @@ export default function CartSidebar() {
                   </option>
                 ))}
               </select>
+
               <button
                 className="default-button mt-2"
                 onClick={() => removeFromCartHandler(item.id)}

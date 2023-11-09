@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import React from 'react'
 import ProductRate from './ProductRate'
 import AddToCart from './AddToCart'
 
@@ -17,11 +18,10 @@ export default function ProductItem({ product }) {
       </Link>
       <div className="flex flex-col items-center justify-center p-5">
         <Link href={`/product/${product.id}`}>
-          <h2 className="text-lg">{product.name}</h2>
+          <h2 className="text-lg font-bold">{product.name}</h2>
         </Link>
         <ProductRate rate={product.rating} count={product.numReviews} />
-        <p className="mb-2">{product.brand}</p>
-        <p>${product.price}</p>
+        <p> ${product.price} </p>
         <AddToCart
           showQty={false}
           product={product}
